@@ -17,7 +17,7 @@ gulp.task('js', function(){
         .pipe($.if(args.verbose,$.print()));
 });
 
-gulp.task('styles', function(){
+gulp.task('styles',['clean-styles'], function(){
     log(info('Compiling less to css'));
     return gulp
         .src([
@@ -29,6 +29,11 @@ gulp.task('styles', function(){
 });
 
 gulp.task('clean-styles', function(){
+    log(info('Cleaning Temp files'));
     var files = './.temp/*.css';
     del(files);
+});
+
+gulp.task('less-watcher', function(){
+    gulp.watch('./src/client/styles/*.less',['styles']);
 })
